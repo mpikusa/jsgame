@@ -19,9 +19,11 @@ $.init = function () {
     $.canvas.height = $.height;
 
 
+    $.output = document.getElementById("output");
+
     $.ctx = $.canvas.getContext('2d');
 
-    $.canvas.onmousemove = $.updateMousePosition
+    $.canvas.onmousemove = $.updateMousePosition;
 
     $.loop();
 };

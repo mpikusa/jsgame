@@ -2,8 +2,8 @@ $.Circle = {
   radius: 20,
   x: 50,
   y: 50,
-  vx: 10,
-  vy: 10,
+  vx: 5,
+  vy: 5,
 
   update: function() {
 
@@ -16,7 +16,29 @@ $.Circle = {
     }
 
     if(this.y == $.Hitter.ypos - $.Hitter.height && (this.x > $.Hitter.xpos && this.x < $.Hitter.xpos + $.Hitter.length)) {
-      this.vy = -this.vy;
+      let relativePosition = (this.x - $.Hitter.xpos - ($.Hitter.length/2))/$.Hitter.length;
+      let reflection = -2*relativePosition/2;
+      $.output.innerHTML = relativePosition + " " + reflection;
+
+      let n = { x: reflection, y: 1};
+
+      let len = Math.sqrt(n.x*n.x + 1);
+      console.log("len = " + len);
+
+      console.log("n = " + n.x + ", " + n.y );
+      n.x = n.x/len;
+      n.y = n.y/len;
+
+      console.log("normalized n = " + n.x + ", " + n.y );
+      let c = 2*(n.x * this.vx + n.y*this.vy);
+
+      console.log(c);
+      //clean the code
+
+      this.vx = this.vx - (c*n.x);
+      this.vy = this.vy - (c*n.y);
+      $.output.innerHTML = this.vx + " " + this.vy + " " + this.y  + " " + $.Hitter.ypos;
+      //this.vy = -this.vy;
     }
 
     this.x += this.vx;
